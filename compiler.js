@@ -16,3 +16,11 @@ function marathiToJS(code) {
     code = code.replace(/समाप्त/g, "}");
     return code;
 }
+function marathiToJS(code) {
+    // "लिहा(...)" → console.log(...)
+    code = code.replace(/लिहा\((.*)\)/g, "console.log($1)");
+    // "सुरू_करा" → function सुरू_करा()
+    code = code.replace(/सुरू_करा/g, "function सुरू_करा()");
+    code = code.replace(/समाप्त/g, "}");
+    return code;
+}
