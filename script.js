@@ -31,24 +31,3 @@ function runCode() {
         outputDiv.innerHTML = "त्रुटी: " + err.message;
     }
 }
-function runCode() {
-    let code = document.getElementById("code").value;
-    let jsCode = marathiToJS(code);
-
-    let outputDiv = document.getElementById("output");
-    outputDiv.innerHTML = ""; // clear previous output
-
-    try {
-        // console.log override फक्त एकदाच
-        const oldLog = console.log;
-        console.log = function(msg) {
-            outputDiv.innerHTML += msg + "<br>";
-        }
-
-        eval(jsCode);
-
-        console.log = oldLog; // restore native console.log
-    } catch (err) {
-        outputDiv.innerHTML = "त्रुटी: " + err.message;
-    }
-}
