@@ -1,4 +1,11 @@
-// सोपा Marathi Compiler - Version 1
+function compileToJS(code) {
+    // साधं उदाहरण: "छाप" → console.log
+    code = code.replace(/छाप\s+(.*)/g, "console.log($1)");
+
+    return code;
+}
+
+// पुढे इथे बाकी कोड (जसे runCode function इ.) टाक// सोपा Marathi Compiler - Version 1
 
 function marathiCompiler(code) {
     let lines = code.split("\n");
