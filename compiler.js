@@ -1,49 +1,20 @@
-// Marathi Compiler core - Omkar6
-function marathiToJs(code) {
-  // साधं उदाहरण: मराठी शब्द → JavaScript मध्ये बदल
-  return code
-    .replace(/छापा/g, "console.log")   // छापा = console.log
-    .replace(/जर/g, "if")              // जर = if
-    .replace(/नाहीतर/g, "else")        // नाहीतर = else
-    .replace(/पर्यंत/g, "while");      // पर्यंत = while
-}
-// Marathi → JavaScript translator
+// सोपा Marathi Compiler - Version 1
 
-function marathiToJS(code) {
-    // "लिहा(...)" → console.log(...)
-    code = code.replace(/लिहा\((.*)\)/g, "console.log($1)");
-    // "सुरू_करा" → function सुरू_करा()
-    code = code.replace(/सुरू_करा/g, "function सुरू_करा()");
-    code = code.replace(/समाप्त/g, "}");
-    return code;
-}
-function runCode() {
-    let code = document.getElementById("code").value;
-    let jsCode = marathiToJS(code);
+function marathiCompiler(code) {
+    let lines = code.split("\n");
+    let output = "";
 
-    let outputDiv = document.getElementById("output");
-    outputDiv.innerHTML = ""; // clear old output
+    for (let line of lines) {
+        line = line.trim();
 
-    try {
-        // console.log capture करतो
-        let oldLog = console.log;
-        console.log = function(msg) {
-            outputDiv.innerHTML += msg + "<br>";
-            oldLog.apply(console, arguments);
+        // "छापा" = console.log
+        if (line.startsWith("छापा")) {
+            let text = line.replace("छापा", "").trim();
+            output += text + "\n";
         }
 
-        eval(jsCode); // JS code run
-
-        console.log = oldLog; // restore
-    } catch (err) {
-        outputDiv.innerHTML = "त्रुटी: " + err.message;
+        // भविष्यात अजून keywords add करू
     }
-}
-// Marathi code → JS code मध्ये convert करणारी function
-function compileToJS(code) {
-    // साधा replace: "छाप" → "console.log"
-    code = code.replace(/छाप/g, "console.log");
 
-    // अजून rules इथे add करू शकतोस
-    return code;
+    return output || "⚠️ काहीही output नाही!";
 }
