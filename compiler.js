@@ -39,3 +39,11 @@ function runCode() {
         outputDiv.innerHTML = "त्रुटी: " + err.message;
     }
 }
+// Marathi code → JS code मध्ये convert करणारी function
+function compileToJS(code) {
+    // साधा replace: "छाप" → "console.log"
+    code = code.replace(/छाप/g, "console.log");
+
+    // अजून rules इथे add करू शकतोस
+    return code;
+}
