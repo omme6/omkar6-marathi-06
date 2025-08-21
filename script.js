@@ -1,33 +1,22 @@
-function runCode() {
-  let input = document.getElementById("code").value;
-  let jsCode = marathiToJs(input);
+// Run बटणावर क्लिक झाले की कोड चालवणे
+document.getElementById("runButton").addEventListener("click", runCode);
 
-  try {
-    let result = eval(jsCode);
-    document.getElementById("output").textContent = result !== undefined ? result : "✅ यशस्वी चाललं!";
-  } catch (err) {
-    document.getElementById("output").textContent = "❌ त्रुटी: " + err.message;
-  }
-}
+// runCode ही function
 function runCode() {
-    let code = document.getElementById("code").value;
-    let jsCode = marathiToJS(code);
-
-    let outputDiv = document.getElementById("output");
-    outputDiv.innerHTML = ""; // clear old output
+    // textarea मधून user ने लिहिलेला Marathi code घेणे
+    let marathiCode = document.getElementById("editor").value;
 
     try {
-        // console.log capture करतो
-        let oldLog = console.log;
-        console.log = function(msg) {
-            outputDiv.innerHTML += msg + "<br>";
-            oldLog.apply(console, arguments);
-        }
+        // Marathi code → JavaScript मध्ये convert करणे (compiler.js मध्ये असलेले function)
+        let jsCode = compileToJS(marathiCode);
 
-        eval(jsCode); // JS code run
+        // JS code चालवणे
+        let output = eval(jsCode);
 
-        console.log = oldLog; // restore
-    } catch (err) {
-        outputDiv.innerHTML = "त्रुटी: " + err.message;
+        // Output दाखवणे
+        document.getElementById("output").innerText = output !== undefined ? output : "";
+    } catch (error) {
+        // Error आल्यास दाखवणे
+        document.getElementById("output").innerText = "त्रुटी: " + error.message;
     }
 }
